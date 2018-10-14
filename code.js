@@ -15,27 +15,29 @@ const bookSelectionPage = Vue.component('book-selection', {
 
   data () {
     return {
-      bookname: '',
-      loading: false
-    }
-  },
-
-  methods: {
-    getBook: function () {
-      this.loading = true
-
-      axios
-        .get(API_URL + this.bookname)
-        .then(response => {
-          console.log(response.data)
-          this.loading = false
-        })
+      bookname: ''
     }
   }
 })
 
 const leavesPage = Vue.component('leaves-page', {
-  template: '#leaves-page'
+  template: '#leaves-page',
+
+  data () {
+    return {
+      loading: true,
+      bookname: this.$route.params.book
+    }
+  },
+
+  created () {
+    axios
+      .get(API_URL + this.bookname)
+      .then(response => {
+        console.log(response.data)
+        this.loading = false
+      })
+  }
 })
 
 //                   //
@@ -50,7 +52,7 @@ const router = new VueRouter ({
       component: bookSelectionPage
     },
     {
-      path: '/leaves',
+      path: '/leaves/:book',
       name: 'leaves',
       component: leavesPage
     },
