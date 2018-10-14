@@ -9,6 +9,10 @@ const bookSelectionPage = Vue.component('book-selection', {
   template: '#book-selection'
 })
 
+const leavesPage = Vue.component('leaves-page', {
+  template: '#leaves-page'
+})
+
 //                   //
 // Router definition //
 //                   //
@@ -19,6 +23,11 @@ const router = new VueRouter ({
       path: '/',
       name: 'home',
       component: bookSelectionPage
+    },
+    {
+      path: '/leaves',
+      name: 'leaves',
+      component: leavesPage
     },
     {
       path: '*',
