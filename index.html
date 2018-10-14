@@ -15,10 +15,10 @@
   <div class="col col-md-3">
     <div class="card mb-4">
       <div class="card-header">
-        🍃 
+        {{title}}
       </div>
       <div class="card-body">
-        This is a leaf. 
+        {{content}}
       </div>
       <div class="card-footer">
         <div class="float-right">
@@ -53,21 +53,22 @@
 <template id="leaves-page">
   <div id="leaves-page">
     <nav class="navbar navbar-light mb-4">
-      <span class="navbar-brand mb-0 h1">
+      <span class="navbar-brand mb-0 h1 margin-center">
       <router-link to="/">LeafBook</router-link>
       (<small>{{bookname}}</small>)</span>
     </nav>
     <div>
       <div class="container">
         <div class="row">
-          <leaf></leaf>
-          <leaf></leaf>
-          <leaf></leaf>
-          <leaf></leaf>
-          <leaf></leaf>
-          <leaf></leaf>
+          <div class="spinner" v-if="loading"></div>
+          <span class="margin-center" v-if="!loading && leaves.length === 0">There are no leafs in this book. Yet.</span>
+          <leaf
+            v-for="leaf in leaves"
+            :id = 'leaf.id'
+            :title = 'leaf.title'
+            :content = 'leaf.content'
+          ></leaf>
         </div>
-      <!-- <div class="spinner"></div> -->
     </div>
   </div>
 </template>

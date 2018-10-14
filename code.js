@@ -26,6 +26,7 @@ const leavesPage = Vue.component('leaves-page', {
 
   data () {
     return {
+      leaves: [],
       loading: true,
       bookname: this.$route.params.book
     }
@@ -35,8 +36,8 @@ const leavesPage = Vue.component('leaves-page', {
     axios
       .get(API_URL + this.bookname)
       .then(response => {
-        console.log(response.data)
         this.loading = false
+        if (response.data.leaves) this.leaves = response.data.leaves
       })
   }
 })
@@ -45,7 +46,13 @@ const leavesPage = Vue.component('leaves-page', {
 
 // Leaf component
 const leaf = Vue.component('leaf', {
-  template: '#leaf-template'
+  template: '#leaf-template',
+
+  props: [
+    'id',
+    'title',
+    'content'
+  ]
 })
 
 //                   //
