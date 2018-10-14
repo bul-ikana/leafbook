@@ -17,17 +17,73 @@
           <input type="text" class="form-control" id="book-name" aria-describedby="bookHelp" placeholder="Book name" v-model="bookname">
           <small id="bookHelp" class="form-text text-muted">If the book does not exists, it will be created.</small>
         </div>
-        <button @click="getBook" class="btn btn-success btn-block" :disabled="bookname === ''">
-          Go 
-          <span class="spinner" v-if="loading"></span>
-        </button>
+        <router-link :to="{name: 'leaves', params: {book: bookname}}" class="btn btn-success btn-block" :disabled="bookname === ''"> Go </router-link>
       </form>
   </div>
 </template>
 
 <template id="leaves-page">
-  <div>
-    🍃 <router-link class="btn btn-primary" to="/">Book</router-link>
+  <div id="leaves-page">
+    <nav class="navbar navbar-light mb-4">
+      <span class="navbar-brand mb-0 h1">
+      <router-link to="/">LeafBook</router-link>
+      (<small>{{bookname}}</small>)</span>
+    </nav>
+    <div>
+      <div class="container">
+        <div class="row">
+          <div class="col col-md-3">
+            <div class="card mb-4">
+              <div class="card-body">
+                🍃 This is a leaf. 
+              </div>
+            </div>
+          </div>
+        
+          <div class="col col-md-3">
+            <div class="card mb-4">
+              <div class="card-body">
+                🍃 This is a leaf. 
+              </div>
+            </div>
+          </div>
+
+          <div class="col col-md-3">
+            <div class="card mb-4">
+              <div class="card-body">
+                🍃 This is a leaf. 
+              </div>
+            </div>
+          </div>
+
+          <div class="col col-md-3">
+            <div class="card mb-4">
+              <div class="card-body">
+                🍃 This is a leaf. 
+              </div>
+            </div>
+          </div>
+
+          <div class="col col-md-3">
+            <div class="card mb-4">
+              <div class="card-body">
+                🍃 This is a leaf. 
+              </div>
+            </div>
+          </div>
+
+          <div class="col col-md-3">
+            <div class="card mb-4">
+              <div class="card-body">
+                🍃 This is a leaf. 
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      <!-- <div class="spinner"></div> -->
+    </div>
   </div>
 </template>
 

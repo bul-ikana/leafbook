@@ -39,6 +39,23 @@ body {
     position: relative;
 }
 
+nav {
+  background-color: #97b498;
+}
+
+nav a {
+  color: rgba(0,0,0,.9)
+}
+
+#leaves-page {
+  height: 100%;
+  background-color: #c8e6c9;
+}
+
+.navbar-brand {
+  margin: auto;
+}
+
 .spinner {
   width: 22px;
   height: 22px;
