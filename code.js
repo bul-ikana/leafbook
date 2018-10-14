@@ -44,6 +44,21 @@ const leavesPage = Vue.component('leaves-page', {
 
 // Components //
 
+// Autoresize textarea
+
+const autoarea = Vue.component('autoarea', {
+  template: '#autoarea',
+
+  props: [
+    'value',
+    'handleChange'
+  ],
+
+  mounted () {
+    autosize(this.$el)
+  }
+})
+
 // Leaf component
 const leaf = Vue.component('leaf', {
   template: '#leaf-template',
@@ -52,7 +67,13 @@ const leaf = Vue.component('leaf', {
     'id',
     'title',
     'content'
-  ]
+  ],
+
+  methods: {
+    handleChange(e) {
+      this.text = e.target.value
+    }
+  }
 })
 
 //                   //

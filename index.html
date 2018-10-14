@@ -11,14 +11,19 @@
   <title>LeafBook</title>
 </head>
 
+<template id="autoarea">
+  <textarea @input="handleChange" >{{ value }}</textarea>
+</template>
+
 <template id="leaf-template">
   <div class="col col-md-3">
     <div class="card mb-4">
       <div class="card-header">
-        {{title}}
+        <input type="text" name="title" v-model="title" placeholder="Title" maxlength="255">
       </div>
       <div class="card-body">
-        {{content}}
+        <autoarea :handle-change="handleChange" v-model="content"></autoarea>
+        <!-- {{content}} -->
       </div>
       <div class="card-footer">
         <div class="float-right">
@@ -56,15 +61,16 @@
       <span class="navbar-brand mb-0 h1 margin-center">
       <router-link to="/">LeafBook</router-link>
       (<small>{{bookname}}</small>)</span>
+      <div class="spinner" v-if="loading"></div>
     </nav>
     <div>
       <div class="container">
         <div class="row">
-          <div class="spinner" v-if="loading"></div>
-          <span class="margin-center" v-if="!loading && leaves.length === 0">There are no leafs in this book. Yet.</span>
+          <leaf></leaf>
           <leaf
             v-for="leaf in leaves"
             :id = 'leaf.id'
+            :key = 'leaf.id'
             :title = 'leaf.title'
             :content = 'leaf.content'
           ></leaf>
@@ -79,6 +85,7 @@
   </div>
 
   <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+  <script src="http://www.jacklmoore.com/js/autosize.min.js"></script>
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
