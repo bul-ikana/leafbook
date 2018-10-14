@@ -1,3 +1,8 @@
+//                         //
+// Basic app configuration //
+//                         //
+const API_URL = ""
+
 //                      //
 // Component definition //
 //                      //
@@ -6,7 +11,27 @@
 
 // Book Selection Page
 const bookSelectionPage = Vue.component('book-selection', {
-  template: '#book-selection'
+  template: '#book-selection',
+
+  data () {
+    return {
+      bookname: '',
+      loading: false
+    }
+  },
+
+  methods: {
+    getBook: function () {
+      this.loading = true
+
+      axios
+        .get(API_URL + this.bookname)
+        .then(response => {
+          console.log(response.data)
+          this.loading = false
+        })
+    }
+  }
 })
 
 const leavesPage = Vue.component('leaves-page', {
