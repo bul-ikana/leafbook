@@ -20,6 +20,7 @@ const bookSelectionPage = Vue.component('book-selection', {
   }
 })
 
+// Leaves page
 const leavesPage = Vue.component('leaves-page', {
   template: '#leaves-page',
 
@@ -38,6 +39,13 @@ const leavesPage = Vue.component('leaves-page', {
         this.loading = false
       })
   }
+})
+
+// Components //
+
+// Leaf component
+const leaf = Vue.component('leaf', {
+  template: '#leaf-template'
 })
 
 //                   //
