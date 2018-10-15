@@ -71,6 +71,9 @@ const leaf = Vue.component('leaf', {
   methods: {
     handleChange(e) {
       this.text = e.target.value
+    },
+    deleteLeaf () {
+      this.$store.dispatch('deleteLeaf', this.id)
     }
   }
 })
@@ -124,6 +127,12 @@ const store = new Vuex.Store({
 
     INITIALIZE (state, leaves) {
       state.leaves = leaves
+    },
+
+    DELETE_LEAF (state, id) {
+      state.leaves = state.leaves.filter(leaf => {
+        return leaf.id !== id
+      })
     }
   },
 
@@ -132,10 +141,20 @@ const store = new Vuex.Store({
       store.commit('SET_BOOKNAME', bookname)
       store.commit('SET_LOADING')
       axios
-        .get(API_URL + store.getters.bookname)
+        .get(API_URL + 'books/' + store.getters.bookname)
         .then( response => {
           store.commit('SET_NOT_LOADING')
           if (response.data.leaves) store.commit('INITIALIZE', response.data.leaves)
+        })
+    },
+
+    deleteLeaf (state, id) {
+      store.commit('DELETE_LEAF', id)
+      store.commit('SET_LOADING')
+      axios
+        .delete(API_URL + 'leaves/' + id)
+        .then( response => {
+          store.commit('SET_NOT_LOADING')
         })
     }
   },
