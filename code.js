@@ -55,6 +55,12 @@ const autoarea = Vue.component('autoarea', {
 
   mounted () {
     autosize(this.$el)
+  },
+
+  methods: {
+    onChange: function (event) {
+      this.$emit('update:value', event.target.value)
+    }
   }
 })
 
@@ -68,10 +74,25 @@ const leaf = Vue.component('leaf', {
     'content'
   ],
 
+  data () {
+    return {
+      livetitle: this.title,
+      livecontent: this.content
+    }
+  },
+
+  computed: {
+    dirty () {
+      return (this.title !== this.livetitle) ||
+        (this.content !== this.livecontent) 
+    }    
+  },
+
   methods: {
     handleChange(e) {
       this.text = e.target.value
     },
+
     deleteLeaf () {
       this.$store.dispatch('deleteLeaf', this.id)
     }

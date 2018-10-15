@@ -12,22 +12,21 @@
 </head>
 
 <template id="autoarea">
-  <textarea @input="handleChange" >{{ value }}</textarea>
+  <textarea @input="handleChange" v-on:keyup="onChange($event)" :value="value"></textarea>
 </template>
 
 <template id="leaf-template">
   <div class="col col-md-3">
     <div class="card mb-4">
       <div class="card-header">
-        <input type="text" name="title" v-model="title" placeholder="Title" maxlength="255">
+        <input type="text" name="title" v-model="livetitle" placeholder="Title" maxlength="255">
       </div>
       <div class="card-body">
-        <autoarea :handle-change="handleChange" v-model="content"></autoarea>
-        <!-- {{content}} -->
+        <autoarea :handle-change="handleChange" :value.sync="livecontent"></autoarea>
       </div>
       <div class="card-footer">
         <div class="float-right">
-          <button class="btn btn-outline-dark btn-sm">
+          <button class="btn btn-outline-dark btn-sm" v-show="dirty">
             <i class="fas fa-check-circle"></i>
           </button>
           <button class="btn btn-outline-dark btn-sm">
