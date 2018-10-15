@@ -93,6 +93,16 @@ const leaf = Vue.component('leaf', {
       this.text = e.target.value
     },
 
+    saveLeaf () {
+      let leaf = {
+        id: this.id,
+        title: this.livetitle,
+        content: this.livecontent
+      }
+
+      this.$store.dispatch('saveLeaf', leaf)
+    },
+
     deleteLeaf () {
       this.$store.dispatch('deleteLeaf', this.id)
     }
@@ -150,6 +160,16 @@ const store = new Vuex.Store({
       state.leaves = leaves
     },
 
+    SAVE_LEAF (state, newleaf) {
+      state.leaves = state.leaves.map(leaf => {
+        if (leaf.id === newleaf.id) {
+          leaf.title = newleaf.title
+          leaf.content = newleaf.content
+        }
+        return leaf
+      })
+    },
+
     DELETE_LEAF (state, id) {
       state.leaves = state.leaves.filter(leaf => {
         return leaf.id !== id
@@ -167,6 +187,16 @@ const store = new Vuex.Store({
           store.commit('SET_NOT_LOADING')
           if (response.data.leaves) store.commit('INITIALIZE', response.data.leaves)
         })
+    },
+
+    saveLeaf (state, leaf) {
+      store.commit('SAVE_LEAF', leaf)
+      // store.commit('SET_LOADING')
+      // axios
+      //   .delete(API_URL + 'leaves/' + id)
+      //   .then( response => {
+      //     store.commit('SET_NOT_LOADING')
+      //   })
     },
 
     deleteLeaf (state, id) {
