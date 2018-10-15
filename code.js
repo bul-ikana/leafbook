@@ -191,12 +191,14 @@ const store = new Vuex.Store({
 
     saveLeaf (state, leaf) {
       store.commit('SAVE_LEAF', leaf)
-      // store.commit('SET_LOADING')
-      // axios
-      //   .delete(API_URL + 'leaves/' + id)
-      //   .then( response => {
-      //     store.commit('SET_NOT_LOADING')
-      //   })
+      store.commit('SET_LOADING')
+      axios
+        .put(API_URL + 'leaves/' + leaf.id, 
+          store.getters.leaf(leaf.id)
+        )
+        .then( response => {
+          store.commit('SET_NOT_LOADING')
+        })
     },
 
     deleteLeaf (state, id) {
@@ -221,6 +223,12 @@ const store = new Vuex.Store({
 
     bookname: state => {
       return state.bookname
+    },
+
+    leaf: (state) => (id) => {
+      return state.leaves.find(leaf => {
+        return leaf.id === id
+      })
     }
   }
 })
