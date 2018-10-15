@@ -70,6 +70,7 @@ const leaf = Vue.component('leaf', {
 
   props: [
     'id',
+    'color',
     'title',
     'content'
   ],
@@ -85,7 +86,16 @@ const leaf = Vue.component('leaf', {
     dirty () {
       return (this.title !== this.livetitle) ||
         (this.content !== this.livecontent) 
-    }    
+    },
+
+    cardcolor () {
+      return {
+        'card-leaf': this.color == 1,
+        'card-wood': this.color == 2,
+        'card-berry': this.color == 3,
+        'card-flower': this.color == 4
+      }
+    }
   },
 
   methods: {

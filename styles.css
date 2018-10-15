@@ -40,7 +40,7 @@ body {
 }
 
 nav {
-  background-color: #97b498;
+  background-color: #9BD19B;
 }
 
 nav a {
@@ -56,12 +56,34 @@ nav a {
   margin: auto;
 }
 
+.card-leaf {
+  background-color: #EBF5EB;
+}
+
+.card-berry {
+  background-color: #CCDEDE;
+}
+
+.card-wood {
+  background-color: #FFF4EA;
+}
+
+.card-flower {
+  background-color: #FFEAEA;
+}
+
+.card-header,
+.card-footer {
+  background-color: rgba(0,0,0,.02);
+}
+
 .card input,
 .card textarea {
   border: none transparent;
   outline: none;
   resize: none;
   width: 100%;
+  background: none;
 }
 
 .spinner {
