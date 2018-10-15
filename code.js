@@ -24,21 +24,20 @@ const bookSelectionPage = Vue.component('book-selection', {
 const leavesPage = Vue.component('leaves-page', {
   template: '#leaves-page',
 
-  data () {
-    return {
-      leaves: [],
-      loading: true,
-      bookname: this.$route.params.book
+  computed: {
+    leaves () {
+      return this.$store.getters.bookLeaves
+    },
+    loading () {
+      return this.$store.getters.loading
+    },
+    bookname () {
+      return this.$store.getters.bookname
     }
   },
 
   created () {
-    axios
-      .get(API_URL + this.bookname)
-      .then(response => {
-        this.loading = false
-        if (response.data.leaves) this.leaves = response.data.leaves
-      })
+    this.$store.dispatch('fetchBookLeaves', this.$route.params.book)
   }
 })
 
@@ -99,11 +98,69 @@ const router = new VueRouter ({
   ]
 })
 
+//                  //
+// Store definition //
+//                  //
+
+const store = new Vuex.Store({
+  state: {
+    leaves: [],
+    bookname: '',
+    loading: false
+  },
+
+  mutations: {
+    SET_LOADING (state) {
+      state.loading = true
+    },
+
+    SET_NOT_LOADING (state) {
+      state.loading = false
+    },
+
+    SET_BOOKNAME (state, bookname) {
+      state.bookname = bookname
+    },
+
+    INITIALIZE (state, leaves) {
+      state.leaves = leaves
+    }
+  },
+
+  actions: {
+    fetchBookLeaves (state, bookname) {
+      store.commit('SET_BOOKNAME', bookname)
+      store.commit('SET_LOADING')
+      axios
+        .get(API_URL + store.getters.bookname)
+        .then( response => {
+          store.commit('SET_NOT_LOADING')
+          if (response.data.leaves) store.commit('INITIALIZE', response.data.leaves)
+        })
+    }
+  },
+
+  getters: {
+    bookLeaves: state => {
+      return state.leaves
+    },
+
+    loading: state => {
+      return state.loading
+    },
+
+    bookname: state => {
+      return state.bookname
+    }
+  }
+})
+
 //                //
 // Vue definition //
 //                //
 
 var vm = new Vue({
   el: '#app',
+  store: store,
   router: router
 })
