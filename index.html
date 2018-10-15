@@ -1,13 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
-	<title>LeafBook</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/solid.css" integrity="sha384-osqezT+30O6N/vsMqwW8Ch6wKlMofqueuia2H7fePy42uC05rm1G+BUPSd2iBSJL" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/fontawesome.css" integrity="sha384-BzCy2fixOYd0HObpx3GMefNqdbA7Qjcc91RgYeDjrHTIEXqiF00jKvgQG0+zY/7I" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css" >
+
+  <title>LeafBook</title>
 </head>
+
+<template id="autoarea">
+  <textarea @input="handleChange" v-on:keyup="onChange($event)" :value="value"></textarea>
+</template>
+
+<template id="leaf-template">
+  <div class="col col-md-3">
+    <div class="card mb-4">
+      <div class="card-header">
+        <input type="text" name="title" v-model="livetitle" placeholder="Title" maxlength="255">
+      </div>
+      <div class="card-body">
+        <autoarea :handle-change="handleChange" :value.sync="livecontent"></autoarea>
+      </div>
+      <div class="card-footer">
+        <div class="float-right">
+          <button class="btn btn-outline-dark btn-sm" v-show="dirty" @click="saveLeaf">
+            <i class="fas fa-check-circle"></i>
+          </button>
+          <button class="btn btn-outline-dark btn-sm">
+            <i class="fas fa-palette"></i>
+          </button>
+          <button class="btn btn-outline-dark btn-sm" @click="deleteLeaf">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template id="newleaf-template">
+  <div class="col col-md-3">
+    <div class="card mb-4">
+      <div class="card-header">
+        <input type="text" name="title" v-model="title" placeholder="Title" maxlength="255">
+      </div>
+      <div class="card-body">
+        <autoarea :handle-change="handleChange" :value.sync="content"></autoarea>
+      </div>
+      <div class="card-footer">
+        <div class="float-right">
+          <button class="btn btn-outline-dark btn-sm" v-show="dirty" @click="createLeaf">
+            <i class="fas fa-check-circle"></i>
+          </button>
+          <button class="btn btn-outline-dark btn-sm">
+            <i class="fas fa-palette"></i>
+          </button>
+          <button class="btn btn-outline-dark btn-sm" v-show="dirty" @click="deleteLeaf">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template id="book-selection">
+  <div class="book-page">
+      <form>
+        <div class="form-group">
+          <label  class="book-label" for="book-name">Select a book name</label>
+          <input type="text" class="form-control" id="book-name" aria-describedby="bookHelp" placeholder="Book name" v-model="bookname">
+          <small id="bookHelp" class="form-text text-muted">If the book does not exists, it will be created.</small>
+        </div>
+        <router-link :to="{name: 'leaves', params: {book: bookname}}" class="btn btn-success btn-block" :disabled="bookname === ''"> Go </router-link>
+      </form>
+  </div>
+</template>
+
+<template id="leaves-page">
+  <div id="leaves-page">
+    <nav class="navbar navbar-light mb-4">
+      <span class="navbar-brand mb-0 h1 margin-center">
+      <router-link to="/">LeafBook</router-link>
+      (<small>{{bookname}}</small>)</span>
+      <div class="spinner" v-if="loading"></div>
+    </nav>
+    <div>
+      <div class="container">
+        <div class="row">
+          <newleaf></newleaf>
+          <leaf
+            v-for="leaf in leaves"
+            :id = 'leaf.id'
+            :key = 'leaf.id'
+            :title = 'leaf.title'
+            :content = 'leaf.content'
+          ></leaf>
+        </div>
+    </div>
+  </div>
+</template>
+
 <body>
-	🍃
-	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <div id="app">
+    <router-view></router-view>
+  </div>
+
+  <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+  <script src="http://www.jacklmoore.com/js/autosize.min.js"></script>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/vuex"></script>
+  <script src="code.js"></script>
 </body>
 </html>

@@ -1,0 +1,96 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+}
+
+#app {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.book-page {
+    height: 100%;
+    background-color: #c8e6c9;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.book-label {
+    font-weight: 500;
+    line-height: 1.2;
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+#bookHelp {
+    text-align: center;
+}
+
+.btn-block {
+    position: relative;
+}
+
+nav {
+  background-color: #97b498;
+}
+
+nav a {
+  color: rgba(0,0,0,.9)
+}
+
+#leaves-page {
+  min-height: 100%;
+  background-color: #c8e6c9;
+}
+
+.margin-center {
+  margin: auto;
+}
+
+.card input,
+.card textarea {
+  border: none transparent;
+  outline: none;
+  resize: none;
+  width: 100%;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  right: 20px;
+  background-color: #c8e6c9;
+
+  border-radius: 100%;  
+  -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
+  animation: sk-scaleout 1.0s infinite ease-in-out;
+}
+
+@-webkit-keyframes sk-scaleout {
+  0% { -webkit-transform: scale(0) }
+  100% {
+    -webkit-transform: scale(1.0);
+    opacity: 0;
+  }
+}
+
+@keyframes sk-scaleout {
+  0% { 
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  } 100% {
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+    opacity: 0;
+  }
+}
