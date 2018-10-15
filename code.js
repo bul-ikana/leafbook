@@ -109,6 +109,46 @@ const leaf = Vue.component('leaf', {
   }
 })
 
+// New leaf component
+const newleaf = Vue.component('newleaf', {
+  template: '#newleaf-template',
+
+  data () {
+    return {
+      title: '',
+      content: ''
+    }
+  },
+
+  computed: {
+    dirty () {
+      return (this.title !== '') || (this.content !== '')
+    }    
+  },
+
+  methods: {
+    handleChange(e) {
+      this.text = e.target.value
+    },
+
+    createLeaf () {
+      let leaf = {
+        title: this.title,
+        content: this.content
+      }
+
+      this.$store.dispatch('createLeaf', leaf)
+      this.title = ''
+      this.content = ''
+    },
+
+    deleteLeaf () {
+      this.title = ''
+      this.content = ''
+    }
+  }
+})
+
 //                   //
 // Router definition //
 //                   //
@@ -160,6 +200,10 @@ const store = new Vuex.Store({
       state.leaves = leaves
     },
 
+    CREATE_LEAF (state, leaf) {
+      state.leaves = [leaf, ...state.leaves]
+    },
+
     SAVE_LEAF (state, newleaf) {
       state.leaves = state.leaves.map(leaf => {
         if (leaf.id === newleaf.id) {
@@ -186,6 +230,18 @@ const store = new Vuex.Store({
         .then( response => {
           store.commit('SET_NOT_LOADING')
           if (response.data.leaves) store.commit('INITIALIZE', response.data.leaves)
+        })
+    },
+
+    createLeaf (state, leaf) {
+      store.commit('SET_LOADING')
+      axios
+        .post(API_URL + 'books/' + store.getters.bookname + '/leaves', 
+          leaf
+        )
+        .then( response => {
+          store.commit('SET_NOT_LOADING')
+          store.commit('CREATE_LEAF', response.data)
         })
     },
 
