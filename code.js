@@ -1,7 +1,7 @@
 //                         //
 // Basic app configuration //
 //                         //
-const API_URL = ""
+const API_URL = "https://leafbook.herokuapp.com/api/"
 
 //                      //
 // Component definition //
