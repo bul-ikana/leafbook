@@ -39,13 +39,37 @@ body {
     position: relative;
 }
 
-.spinner {
-  width: 22px;
-  height: 22px;
-  margin: auto;
-  position: absolute;
+nav {
+  background-color: #97b498;
+}
+
+nav a {
+  color: rgba(0,0,0,.9)
+}
+
+#leaves-page {
+  min-height: 100%;
   background-color: #c8e6c9;
-  right: 10px;
+}
+
+.margin-center {
+  margin: auto;
+}
+
+.card input,
+.card textarea {
+  border: none transparent;
+  outline: none;
+  resize: none;
+  width: 100%;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  right: 20px;
+  background-color: #c8e6c9;
 
   border-radius: 100%;  
   -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;

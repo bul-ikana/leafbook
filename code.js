@@ -1,7 +1,7 @@
 //                         //
 // Basic app configuration //
 //                         //
-const API_URL = ""
+const API_URL = "https://leafbook.herokuapp.com/api/"
 
 //                      //
 // Component definition //
@@ -20,23 +20,132 @@ const bookSelectionPage = Vue.component('book-selection', {
   }
 })
 
+// Leaves page
 const leavesPage = Vue.component('leaves-page', {
   template: '#leaves-page',
 
-  data () {
-    return {
-      loading: true,
-      bookname: this.$route.params.book
+  computed: {
+    leaves () {
+      return this.$store.getters.bookLeaves
+    },
+    loading () {
+      return this.$store.getters.loading
+    },
+    bookname () {
+      return this.$store.getters.bookname
     }
   },
 
   created () {
-    axios
-      .get(API_URL + this.bookname)
-      .then(response => {
-        console.log(response.data)
-        this.loading = false
-      })
+    this.$store.dispatch('fetchBookLeaves', this.$route.params.book)
+  }
+})
+
+// Components //
+
+// Autoresize textarea
+
+const autoarea = Vue.component('autoarea', {
+  template: '#autoarea',
+
+  props: [
+    'value',
+    'handleChange'
+  ],
+
+  mounted () {
+    autosize(this.$el)
+  },
+
+  methods: {
+    onChange: function (event) {
+      this.$emit('update:value', event.target.value)
+    }
+  }
+})
+
+// Leaf component
+const leaf = Vue.component('leaf', {
+  template: '#leaf-template',
+
+  props: [
+    'id',
+    'title',
+    'content'
+  ],
+
+  data () {
+    return {
+      livetitle: this.title,
+      livecontent: this.content
+    }
+  },
+
+  computed: {
+    dirty () {
+      return (this.title !== this.livetitle) ||
+        (this.content !== this.livecontent) 
+    }    
+  },
+
+  methods: {
+    handleChange(e) {
+      this.text = e.target.value
+    },
+
+    saveLeaf () {
+      let leaf = {
+        id: this.id,
+        title: this.livetitle,
+        content: this.livecontent
+      }
+
+      this.$store.dispatch('saveLeaf', leaf)
+    },
+
+    deleteLeaf () {
+      this.$store.dispatch('deleteLeaf', this.id)
+    }
+  }
+})
+
+// New leaf component
+const newleaf = Vue.component('newleaf', {
+  template: '#newleaf-template',
+
+  data () {
+    return {
+      title: '',
+      content: ''
+    }
+  },
+
+  computed: {
+    dirty () {
+      return (this.title !== '') || (this.content !== '')
+    }    
+  },
+
+  methods: {
+    handleChange(e) {
+      this.text = e.target.value
+    },
+
+    createLeaf () {
+      let leaf = {
+        title: this.title,
+        content: this.content
+      }
+
+      this.$store.dispatch('createLeaf', leaf)
+      this.title = ''
+      this.content = ''
+    },
+
+    deleteLeaf () {
+      this.title = ''
+      this.content = ''
+    }
   }
 })
 
@@ -63,11 +172,129 @@ const router = new VueRouter ({
   ]
 })
 
+//                  //
+// Store definition //
+//                  //
+
+const store = new Vuex.Store({
+  state: {
+    leaves: [],
+    bookname: '',
+    loading: false
+  },
+
+  mutations: {
+    SET_LOADING (state) {
+      state.loading = true
+    },
+
+    SET_NOT_LOADING (state) {
+      state.loading = false
+    },
+
+    SET_BOOKNAME (state, bookname) {
+      state.bookname = bookname
+    },
+
+    INITIALIZE (state, leaves) {
+      state.leaves = leaves
+    },
+
+    CREATE_LEAF (state, leaf) {
+      state.leaves = [leaf, ...state.leaves]
+    },
+
+    SAVE_LEAF (state, newleaf) {
+      state.leaves = state.leaves.map(leaf => {
+        if (leaf.id === newleaf.id) {
+          leaf.title = newleaf.title
+          leaf.content = newleaf.content
+        }
+        return leaf
+      })
+    },
+
+    DELETE_LEAF (state, id) {
+      state.leaves = state.leaves.filter(leaf => {
+        return leaf.id !== id
+      })
+    }
+  },
+
+  actions: {
+    fetchBookLeaves (state, bookname) {
+      store.commit('SET_BOOKNAME', bookname)
+      store.commit('SET_LOADING')
+      axios
+        .get(API_URL + 'books/' + store.getters.bookname)
+        .then( response => {
+          store.commit('SET_NOT_LOADING')
+          if (response.data.leaves) store.commit('INITIALIZE', response.data.leaves)
+        })
+    },
+
+    createLeaf (state, leaf) {
+      store.commit('SET_LOADING')
+      axios
+        .post(API_URL + 'books/' + store.getters.bookname + '/leaves', 
+          leaf
+        )
+        .then( response => {
+          store.commit('SET_NOT_LOADING')
+          store.commit('CREATE_LEAF', response.data)
+        })
+    },
+
+    saveLeaf (state, leaf) {
+      store.commit('SAVE_LEAF', leaf)
+      store.commit('SET_LOADING')
+      axios
+        .put(API_URL + 'leaves/' + leaf.id, 
+          store.getters.leaf(leaf.id)
+        )
+        .then( response => {
+          store.commit('SET_NOT_LOADING')
+        })
+    },
+
+    deleteLeaf (state, id) {
+      store.commit('DELETE_LEAF', id)
+      store.commit('SET_LOADING')
+      axios
+        .delete(API_URL + 'leaves/' + id)
+        .then( response => {
+          store.commit('SET_NOT_LOADING')
+        })
+    }
+  },
+
+  getters: {
+    bookLeaves: state => {
+      return state.leaves
+    },
+
+    loading: state => {
+      return state.loading
+    },
+
+    bookname: state => {
+      return state.bookname
+    },
+
+    leaf: (state) => (id) => {
+      return state.leaves.find(leaf => {
+        return leaf.id === id
+      })
+    }
+  }
+})
+
 //                //
 // Vue definition //
 //                //
 
 var vm = new Vue({
   el: '#app',
+  store: store,
   router: router
 })
