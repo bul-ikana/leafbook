@@ -312,6 +312,7 @@ const store = new Vuex.Store({
         .then( response => {
           store.commit('SET_NOT_LOADING')
           store.commit('CREATE_LEAF', response.data)
+          vm.$toasted.show('Leaf created')
         })
     },
 
@@ -324,6 +325,7 @@ const store = new Vuex.Store({
         )
         .then( response => {
           store.commit('SET_NOT_LOADING')
+          vm.$toasted.show('Leaf saved')
         })
     },
 
@@ -344,6 +346,7 @@ const store = new Vuex.Store({
         .delete(API_URL + 'leaves/' + id)
         .then( response => {
           store.commit('SET_NOT_LOADING')
+          vm.$toasted.show('Leaf deleted')
         })
     }
   },
