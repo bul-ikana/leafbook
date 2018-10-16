@@ -17,7 +17,7 @@
 
 <template id="leaf-template">
   <div class="col col-md-3">
-    <div class="card mb-4">
+    <div class="card mb-4" :class="cardcolor">
       <div class="card-header">
         <input type="text" name="title" v-model="livetitle" placeholder="Title" maxlength="255">
       </div>
@@ -29,9 +29,18 @@
           <button class="btn btn-outline-dark btn-sm" v-show="dirty" @click="saveLeaf">
             <i class="fas fa-check-circle"></i>
           </button>
-          <button class="btn btn-outline-dark btn-sm">
-            <i class="fas fa-palette"></i>
-          </button>
+          <div class="color-button" @click="togglePopup">
+            <button class="btn btn-outline-dark btn-sm">
+              <i class="fas fa-palette"></i>
+            </button>
+            <div class="color-popup" :class="{'color-popup-open': coloropen}">
+              <div @click="setColor(0)" class="color-circle"></div>
+              <div @click="setColor(1)" class="color-circle color-circle-leaf"></div>
+              <div @click="setColor(2)" class="color-circle color-circle-wood"></div>
+              <div @click="setColor(3)" class="color-circle color-circle-berry"></div>
+              <div @click="setColor(4)" class="color-circle color-circle-flower"></div>
+            </div>
+          </div>
           <button class="btn btn-outline-dark btn-sm" @click="deleteLeaf">
             <i class="fas fa-trash-alt"></i>
           </button>
@@ -43,7 +52,7 @@
 
 <template id="newleaf-template">
   <div class="col col-md-3">
-    <div class="card mb-4">
+    <div class="card mb-4" :class="cardcolor">
       <div class="card-header">
         <input type="text" name="title" v-model="title" placeholder="Title" maxlength="255">
       </div>
@@ -55,9 +64,18 @@
           <button class="btn btn-outline-dark btn-sm" v-show="dirty" @click="createLeaf">
             <i class="fas fa-check-circle"></i>
           </button>
-          <button class="btn btn-outline-dark btn-sm">
-            <i class="fas fa-palette"></i>
-          </button>
+          <div class="color-button" @click="togglePopup">
+            <button class="btn btn-outline-dark btn-sm">
+              <i class="fas fa-palette"></i>
+            </button>
+            <div class="color-popup" :class="{'color-popup-open': coloropen}">
+              <div @click="setColor(0)" class="color-circle"></div>
+              <div @click="setColor(1)" class="color-circle color-circle-leaf"></div>
+              <div @click="setColor(2)" class="color-circle color-circle-wood"></div>
+              <div @click="setColor(3)" class="color-circle color-circle-berry"></div>
+              <div @click="setColor(4)" class="color-circle color-circle-flower"></div>
+            </div>
+          </div>
           <button class="btn btn-outline-dark btn-sm" v-show="dirty" @click="deleteLeaf">
             <i class="fas fa-trash-alt"></i>
           </button>
@@ -96,6 +114,7 @@
             v-for="leaf in leaves"
             :id = 'leaf.id'
             :key = 'leaf.id'
+            :color = 'leaf.color'
             :title = 'leaf.title'
             :content = 'leaf.content'
           ></leaf>
@@ -110,7 +129,7 @@
   </div>
 
   <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
-  <script src="http://www.jacklmoore.com/js/autosize.min.js"></script>
+  <script src="https://www.jacklmoore.com/js/autosize.min.js"></script>
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

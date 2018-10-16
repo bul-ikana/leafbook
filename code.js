@@ -70,12 +70,14 @@ const leaf = Vue.component('leaf', {
 
   props: [
     'id',
+    'color',
     'title',
     'content'
   ],
 
   data () {
     return {
+      coloropen: false,
       livetitle: this.title,
       livecontent: this.content
     }
@@ -85,7 +87,16 @@ const leaf = Vue.component('leaf', {
     dirty () {
       return (this.title !== this.livetitle) ||
         (this.content !== this.livecontent) 
-    }    
+    },
+
+    cardcolor () {
+      return {
+        'card-leaf': this.color == 1,
+        'card-wood': this.color == 2,
+        'card-berry': this.color == 3,
+        'card-flower': this.color == 4
+      }
+    }
   },
 
   methods: {
@@ -93,9 +104,23 @@ const leaf = Vue.component('leaf', {
       this.text = e.target.value
     },
 
+    togglePopup () {
+      this.coloropen = !this.coloropen
+    },
+
+    setColor (color) {
+      let leaf = {
+        id: this.id,
+        color: color,
+      }
+      
+      this.$store.dispatch('colorLeaf', leaf)
+    },
+
     saveLeaf () {
       let leaf = {
         id: this.id,
+        color: this.color,
         title: this.livetitle,
         content: this.livecontent
       }
@@ -115,15 +140,26 @@ const newleaf = Vue.component('newleaf', {
 
   data () {
     return {
+      color: 0,
       title: '',
-      content: ''
+      content: '',
+      coloropen: false
     }
   },
 
   computed: {
     dirty () {
       return (this.title !== '') || (this.content !== '')
-    }    
+    },
+
+    cardcolor () {
+      return {
+        'card-leaf': this.color == 1,
+        'card-wood': this.color == 2,
+        'card-berry': this.color == 3,
+        'card-flower': this.color == 4
+      }
+    }
   },
 
   methods: {
@@ -131,18 +167,29 @@ const newleaf = Vue.component('newleaf', {
       this.text = e.target.value
     },
 
+    setColor (color) {
+      this.color = color
+    },
+
+    togglePopup () {
+      this.coloropen = !this.coloropen
+    },
+
     createLeaf () {
       let leaf = {
+        color: this.color,
         title: this.title,
         content: this.content
       }
 
       this.$store.dispatch('createLeaf', leaf)
+      this.color = 0
       this.title = ''
       this.content = ''
     },
 
     deleteLeaf () {
+      this.color = 0
       this.title = ''
       this.content = ''
     }
@@ -207,8 +254,18 @@ const store = new Vuex.Store({
     SAVE_LEAF (state, newleaf) {
       state.leaves = state.leaves.map(leaf => {
         if (leaf.id === newleaf.id) {
+          leaf.color = newleaf.color
           leaf.title = newleaf.title
           leaf.content = newleaf.content
+        }
+        return leaf
+      })
+    },
+
+    COLOR_LEAF (state, newleaf) {
+      state.leaves = state.leaves.map(leaf => {
+        if (leaf.id === newleaf.id) {
+          leaf.color = newleaf.color
         }
         return leaf
       })
@@ -252,6 +309,16 @@ const store = new Vuex.Store({
         .put(API_URL + 'leaves/' + leaf.id, 
           store.getters.leaf(leaf.id)
         )
+        .then( response => {
+          store.commit('SET_NOT_LOADING')
+        })
+    },
+
+    colorLeaf (state, leaf) {
+      store.commit('COLOR_LEAF', leaf)
+      store.commit('SET_LOADING')
+      axios
+        .put(API_URL + 'leaves/' + leaf.id, { color: leaf.color } )
         .then( response => {
           store.commit('SET_NOT_LOADING')
         })

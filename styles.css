@@ -40,7 +40,7 @@ body {
 }
 
 nav {
-  background-color: #97b498;
+  background-color: #9BD19B;
 }
 
 nav a {
@@ -56,12 +56,83 @@ nav a {
   margin: auto;
 }
 
+.card-leaf {
+  background-color: #DBEEDB;
+}
+
+.card-wood {
+  background-color: #FFEDDE;
+}
+
+.card-berry {
+  background-color: #E2ECEC;
+}
+
+.card-flower {
+  background-color: #FFEAEA;
+}
+
+.card-header,
+.card-footer {
+  background-color: rgba(0,0,0,.02);
+}
+
 .card input,
 .card textarea {
   border: none transparent;
   outline: none;
   resize: none;
   width: 100%;
+  background: none;
+}
+
+.color-button {
+  /*margin-left: 2px;*/
+  display: inline-block;
+}
+
+.color-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+  margin: 5px 0px;
+  border: 1px solid rgba(0,0,0,.2);
+}
+
+.color-circle-leaf {
+  background-color: #C8E6C8;
+}
+
+.color-circle-wood {
+  background-color: #FFEDDE;
+}
+
+.color-circle-berry {
+  background-color: #B2CDCD;
+}
+
+.color-circle-flower {
+  background-color: #FFDEDE;
+}
+
+.color-popup {
+  position: absolute;
+  display: none;
+  bottom: 43px;
+  background: #fafafa;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  height: 0px;
+  padding: 0 5px;
+  overflow: hidden;
+  -webkit-transition: all 500ms;
+  transition: all 500ms;
+}
+
+.color-popup-open {
+    height: auto;
+    border: 1px solid #eeeeee;
+    display: block;
 }
 
 .spinner {
