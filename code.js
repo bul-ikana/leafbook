@@ -108,9 +108,19 @@ const leaf = Vue.component('leaf', {
       this.coloropen = !this.coloropen
     },
 
+    setColor (color) {
+      let leaf = {
+        id: this.id,
+        color: color,
+      }
+      
+      this.$store.dispatch('colorLeaf', leaf)
+    },
+
     saveLeaf () {
       let leaf = {
         id: this.id,
+        color: this.color,
         title: this.livetitle,
         content: this.livecontent
       }
@@ -222,8 +232,18 @@ const store = new Vuex.Store({
     SAVE_LEAF (state, newleaf) {
       state.leaves = state.leaves.map(leaf => {
         if (leaf.id === newleaf.id) {
+          leaf.color = newleaf.color
           leaf.title = newleaf.title
           leaf.content = newleaf.content
+        }
+        return leaf
+      })
+    },
+
+    COLOR_LEAF (state, newleaf) {
+      state.leaves = state.leaves.map(leaf => {
+        if (leaf.id === newleaf.id) {
+          leaf.color = newleaf.color
         }
         return leaf
       })
@@ -267,6 +287,16 @@ const store = new Vuex.Store({
         .put(API_URL + 'leaves/' + leaf.id, 
           store.getters.leaf(leaf.id)
         )
+        .then( response => {
+          store.commit('SET_NOT_LOADING')
+        })
+    },
+
+    colorLeaf (state, leaf) {
+      store.commit('COLOR_LEAF', leaf)
+      store.commit('SET_LOADING')
+      axios
+        .put(API_URL + 'leaves/' + leaf.id, { color: leaf.color } )
         .then( response => {
           store.commit('SET_NOT_LOADING')
         })
