@@ -37,6 +37,7 @@ const leavesPage = Vue.component('leaves-page', {
   },
 
   created () {
+    this.$store.dispatch('emptyLeaves')
     this.$store.dispatch('fetchBookLeaves', this.$route.params.book)
   }
 })
@@ -243,6 +244,10 @@ const store = new Vuex.Store({
       state.bookname = bookname
     },
 
+    EMPTY_LEAVES (state) {
+      state.leaves = []
+    },
+
     INITIALIZE (state, leaves) {
       state.leaves = leaves
     },
@@ -288,6 +293,10 @@ const store = new Vuex.Store({
           store.commit('SET_NOT_LOADING')
           if (response.data.leaves) store.commit('INITIALIZE', response.data.leaves)
         })
+    },
+
+    emptyLeaves (state) {
+      state.commit('EMPTY_LEAVES')
     },
 
     createLeaf (state, leaf) {
