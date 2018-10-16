@@ -167,6 +167,16 @@ nav a {
     display: block;
 }
 
+.btn-outline-dark {
+    color: rgba(0,0,0,.6);
+    border-color: rgba(0,0,0,.6);
+}
+
+.toasted.primary.success {
+  background: #9BD19B !important;
+  color: rgba(0,0,0,.8);
+}
+
 .spinner {
   width: 40px;
   height: 40px;

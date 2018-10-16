@@ -2,6 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <link rel="shortcut icon" type="image/png" href="leafbook.png">
+
+  <meta name="theme-color" content="#9BD19B">
+  <meta name="msapplication-navbutton-color" content="#9BD19B">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/solid.css" integrity="sha384-osqezT+30O6N/vsMqwW8Ch6wKlMofqueuia2H7fePy42uC05rm1G+BUPSd2iBSJL" crossorigin="anonymous">
@@ -41,6 +47,9 @@
               <div @click="setColor(4)" class="color-circle color-circle-flower"></div>
             </div>
           </div>
+          <button class="btn btn-outline-dark btn-sm" v-clipboard:copy="livecontent" v-clipboard:success="onCopy">
+              <i class="fas fa-copy"></i>
+            </button>
           <button class="btn btn-outline-dark btn-sm" @click="deleteLeaf">
             <i class="fas fa-trash-alt"></i>
           </button>
@@ -138,6 +147,8 @@
   <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="https://unpkg.com/vuex"></script>
+  <script src="https://cdn.rawgit.com/Inndy/vue-clipboard2/master/dist/vue-clipboard.min.js"></script>
+  <script src="https://unpkg.com/vue-toasted"></script>
   <script src="code.js"></script>
 </body>
 </html>
