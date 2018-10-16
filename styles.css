@@ -35,6 +35,16 @@ body {
     text-align: center;
 }
 
+.btn-success {
+  background-color: #9BD19B;
+  border-color: #9BD19B; 
+}
+
+.btn-success:hover {
+  background-color: #B3DCB3;
+  border-color: #B3DCB3;
+}
+
 .btn-block {
     position: relative;
 }
