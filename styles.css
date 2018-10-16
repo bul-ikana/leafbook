@@ -24,15 +24,33 @@ body {
     justify-content: center;
 }
 
+.book-page img {
+  margin-left: 10px;
+  margin-right: 10px;
+  max-height: 180px;
+}
+
+.book-page form {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+@media(max-width: 470px) {
+  .book-page {
+    flex-direction: column;
+  }  
+}
+
 .book-label {
     font-weight: 500;
     line-height: 1.2;
     font-size: 2.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 #bookHelp {
     text-align: center;
+    margin: .3rem .4rem .7rem .4rem;
 }
 
 .btn-success {
@@ -51,6 +69,10 @@ body {
 
 nav {
   background-color: #9BD19B;
+}
+
+nav img {
+  max-height: 40px;
 }
 
 nav a {
