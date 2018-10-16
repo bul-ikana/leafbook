@@ -24,15 +24,43 @@ body {
     justify-content: center;
 }
 
+.book-page img {
+  margin-left: 10px;
+  margin-right: 10px;
+  max-height: 180px;
+}
+
+.book-page form {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+@media(max-width: 470px) {
+  .book-page {
+    flex-direction: column;
+  }  
+}
+
 .book-label {
     font-weight: 500;
     line-height: 1.2;
     font-size: 2.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 #bookHelp {
     text-align: center;
+    margin: .3rem .4rem .7rem .4rem;
+}
+
+.btn-success {
+  background-color: #9BD19B;
+  border-color: #9BD19B; 
+}
+
+.btn-success:hover {
+  background-color: #B3DCB3;
+  border-color: #B3DCB3;
 }
 
 .btn-block {
@@ -40,7 +68,11 @@ body {
 }
 
 nav {
-  background-color: #97b498;
+  background-color: #9BD19B;
+}
+
+nav img {
+  max-height: 40px;
 }
 
 nav a {
@@ -56,12 +88,83 @@ nav a {
   margin: auto;
 }
 
+.card-leaf {
+  background-color: #DBEEDB;
+}
+
+.card-wood {
+  background-color: #FFEDDE;
+}
+
+.card-berry {
+  background-color: #E2ECEC;
+}
+
+.card-flower {
+  background-color: #FFEAEA;
+}
+
+.card-header,
+.card-footer {
+  background-color: rgba(0,0,0,.02);
+}
+
 .card input,
 .card textarea {
   border: none transparent;
   outline: none;
   resize: none;
   width: 100%;
+  background: none;
+}
+
+.color-button {
+  /*margin-left: 2px;*/
+  display: inline-block;
+}
+
+.color-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+  margin: 5px 0px;
+  border: 1px solid rgba(0,0,0,.2);
+}
+
+.color-circle-leaf {
+  background-color: #C8E6C8;
+}
+
+.color-circle-wood {
+  background-color: #FFEDDE;
+}
+
+.color-circle-berry {
+  background-color: #B2CDCD;
+}
+
+.color-circle-flower {
+  background-color: #FFDEDE;
+}
+
+.color-popup {
+  position: absolute;
+  display: none;
+  bottom: 43px;
+  background: #fafafa;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  height: 0px;
+  padding: 0 5px;
+  overflow: hidden;
+  -webkit-transition: all 500ms;
+  transition: all 500ms;
+}
+
+.color-popup-open {
+    height: auto;
+    border: 1px solid #eeeeee;
+    display: block;
 }
 
 .spinner {
