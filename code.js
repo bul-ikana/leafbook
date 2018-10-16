@@ -101,6 +101,10 @@ const leaf = Vue.component('leaf', {
   },
 
   methods: {
+    onCopy () {
+      this.$toasted.show('Copied to clipboard')
+    },
+
     handleChange(e) {
       this.text = e.target.value
     },
@@ -363,6 +367,18 @@ const store = new Vuex.Store({
       })
     }
   }
+})
+
+//                            //
+// Notification configuration //
+//                            //
+
+Vue.use(Toasted, {
+  duration: 900,
+  type: 'success',
+  icon: 'check-circle',
+  position: 'bottom-left',
+  iconPack : 'fontawesome',
 })
 
 //                //

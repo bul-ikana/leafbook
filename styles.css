@@ -167,6 +167,11 @@ nav a {
     display: block;
 }
 
+.toasted.primary.success {
+  background: #9BD19B !important;
+  color: rgba(0,0,0,.9);
+}
+
 .spinner {
   width: 40px;
   height: 40px;
