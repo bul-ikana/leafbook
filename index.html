@@ -16,7 +16,7 @@
 </template>
 
 <template id="leaf-template">
-  <div class="col col-md-3">
+  <div class="col col-12 col-sm-6 col-md-4 col-lg-3">
     <div class="card mb-4" :class="cardcolor">
       <div class="card-header">
         <input type="text" name="title" v-model="livetitle" placeholder="Title" maxlength="255">
@@ -51,7 +51,7 @@
 </template>
 
 <template id="newleaf-template">
-  <div class="col col-md-3">
+  <div class="col col-12 col-sm-6 col-md-4 col-lg-3">
     <div class="card mb-4" :class="cardcolor">
       <div class="card-header">
         <input type="text" name="title" v-model="title" placeholder="Title" maxlength="255">
@@ -87,20 +87,24 @@
 
 <template id="book-selection">
   <div class="book-page">
+    <div><img src="leafbook.svg"></div>
+    <div>
       <form>
         <div class="form-group">
-          <label  class="book-label" for="book-name">Select a book name</label>
-          <input type="text" class="form-control" id="book-name" aria-describedby="bookHelp" placeholder="Book name" v-model="bookname">
+          <label  class="book-label text-center w-100" for="book-name">LeafBook</label>
+          <input type="text" class="form-control" id="book-name" aria-describedby="bookHelp" placeholder="Select a book name" v-model="bookname">
           <small id="bookHelp" class="form-text text-muted">If the book does not exists, it will be created.</small>
         </div>
         <router-link :to="{name: 'leaves', params: {book: bookname}}" class="btn btn-success btn-block" :disabled="bookname === ''"> Go </router-link>
       </form>
+    </div>
   </div>
 </template>
 
 <template id="leaves-page">
   <div id="leaves-page">
     <nav class="navbar navbar-light mb-4">
+      <img src="leafbook.svg">
       <span class="navbar-brand mb-0 h1 margin-center">
       <router-link to="/">LeafBook</router-link>
       (<small>{{bookname}}</small>)</span>
