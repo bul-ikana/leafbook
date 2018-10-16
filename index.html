@@ -41,7 +41,7 @@
               <div @click="setColor(4)" class="color-circle color-circle-flower"></div>
             </div>
           </div>
-          <button class="btn btn-outline-dark btn-sm" v-clipboard:copy="livecontent">
+          <button class="btn btn-outline-dark btn-sm" v-clipboard:copy="livecontent" v-clipboard:success="onCopy">
               <i class="fas fa-copy"></i>
             </button>
           <button class="btn btn-outline-dark btn-sm" @click="deleteLeaf">
@@ -142,6 +142,7 @@
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="https://unpkg.com/vuex"></script>
   <script src="https://cdn.rawgit.com/Inndy/vue-clipboard2/master/dist/vue-clipboard.min.js"></script>
+  <script src="https://unpkg.com/vue-toasted"></script>
   <script src="code.js"></script>
 </body>
 </html>
