@@ -140,15 +140,26 @@ const newleaf = Vue.component('newleaf', {
 
   data () {
     return {
+      color: 0,
       title: '',
-      content: ''
+      content: '',
+      coloropen: false
     }
   },
 
   computed: {
     dirty () {
       return (this.title !== '') || (this.content !== '')
-    }    
+    },
+
+    cardcolor () {
+      return {
+        'card-leaf': this.color == 1,
+        'card-wood': this.color == 2,
+        'card-berry': this.color == 3,
+        'card-flower': this.color == 4
+      }
+    }
   },
 
   methods: {
@@ -156,18 +167,29 @@ const newleaf = Vue.component('newleaf', {
       this.text = e.target.value
     },
 
+    setColor (color) {
+      this.color = color
+    },
+
+    togglePopup () {
+      this.coloropen = !this.coloropen
+    },
+
     createLeaf () {
       let leaf = {
+        color: this.color,
         title: this.title,
         content: this.content
       }
 
       this.$store.dispatch('createLeaf', leaf)
+      this.color = 0
       this.title = ''
       this.content = ''
     },
 
     deleteLeaf () {
+      this.color = 0
       this.title = ''
       this.content = ''
     }
