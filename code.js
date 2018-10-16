@@ -77,6 +77,7 @@ const leaf = Vue.component('leaf', {
 
   data () {
     return {
+      coloropen: false,
       livetitle: this.title,
       livecontent: this.content
     }
@@ -101,6 +102,10 @@ const leaf = Vue.component('leaf', {
   methods: {
     handleChange(e) {
       this.text = e.target.value
+    },
+
+    togglePopup () {
+      this.coloropen = !this.coloropen
     },
 
     saveLeaf () {
