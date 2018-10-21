@@ -17,6 +17,11 @@ const bookSelectionPage = Vue.component('book-selection', {
     return {
       bookname: ''
     }
+  },
+
+  beforeCreate() {
+    //Quick and dirty hack to wake up heroku a bit sooner
+    axios.get(API_URL + 'books/ping')
   }
 })
 

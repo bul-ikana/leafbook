@@ -101,10 +101,10 @@
       <form>
         <div class="form-group">
           <label  class="book-label text-center w-100" for="book-name">LeafBook</label>
-          <input type="text" class="form-control" id="book-name" aria-describedby="bookHelp" placeholder="Select a book name" v-model="bookname">
+          <input type="text" class="form-control" id="book-name" aria-describedby="bookHelp" placeholder="Select a book name" v-model="bookname" autofocus>
           <small id="bookHelp" class="form-text text-muted">If the book does not exists, it will be created.</small>
         </div>
-        <router-link :to="{name: 'leaves', params: {book: bookname}}" class="btn btn-success btn-block" :disabled="bookname === ''"> Go </router-link>
+        <router-link type="submit" tag="button" :to="{name: 'leaves', params: {book: bookname}}" class="btn btn-success btn-block" :disabled="bookname === ''"> Go </router-link>
       </form>
     </div>
   </div>
@@ -141,9 +141,8 @@
     <router-view></router-view>
   </div>
 
-  <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
   <script src="https://www.jacklmoore.com/js/autosize.min.js"></script>
-  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
   <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="https://unpkg.com/vuex"></script>
