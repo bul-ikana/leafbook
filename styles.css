@@ -67,6 +67,10 @@ body {
     position: relative;
 }
 
+.btn-sm {
+  margin-left: 10px;
+}
+
 nav {
   background-color: #9BD19B;
 }
