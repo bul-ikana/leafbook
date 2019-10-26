@@ -47,6 +47,9 @@
               <div @click="setColor(4)" class="color-circle color-circle-flower"></div>
             </div>
           </div>
+          <button class="btn btn-outline-dark btn-sm" v-show="titleIsUrl" @click="goToTitle">
+            <i class="fas fa-link"></i>
+          </button>
           <button class="btn btn-outline-dark btn-sm" v-clipboard:copy="livecontent" v-clipboard:success="onCopy">
               <i class="fas fa-copy"></i>
             </button>

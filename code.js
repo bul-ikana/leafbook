@@ -95,6 +95,10 @@ const leaf = Vue.component('leaf', {
         (this.content !== this.livecontent) 
     },
 
+    titleIsUrl () {
+      return /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/.test(this.title)
+    },
+
     cardcolor () {
       return {
         'card-leaf': this.color == 1,
@@ -125,6 +129,10 @@ const leaf = Vue.component('leaf', {
       }
       
       this.$store.dispatch('colorLeaf', leaf)
+    },
+
+    goToTitle () {
+      window.open(this.title)
     },
 
     saveLeaf () {
