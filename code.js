@@ -305,7 +305,7 @@ const store = new Vuex.Store({
       store.commit('SET_BOOKNAME', bookname)
       store.commit('SET_LOADING')
       axios
-        .get(API_URL + 'books/' + store.getters.bookname)
+        .get(API_URL + 'books/' + store.getters.bookname.toLowerCase())
         .then( response => {
           store.commit('SET_NOT_LOADING')
           if (response.data.leaves) store.commit('INITIALIZE', response.data.leaves)
