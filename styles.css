@@ -53,9 +53,14 @@ body {
     margin: .3rem .4rem .7rem .4rem;
 }
 
-.btn-success {
+.btn-success, 
+.btn-success:disabled {
   background-color: #9BD19B;
   border-color: #9BD19B; 
+}
+
+.btn-success:disabled {
+  opacity: 0.5;
 }
 
 .btn-success:hover {
