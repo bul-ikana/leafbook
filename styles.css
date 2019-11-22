@@ -73,7 +73,7 @@ body {
 }
 
 .btn-sm {
-  margin-left: 10px;
+  margin-left: 7px;
 }
 
 nav {
@@ -159,7 +159,7 @@ nav a {
 .color-popup {
   position: absolute;
   display: none;
-  bottom: 43px;
+  bottom: 47px;
   background: #fafafa;
   border: 1px solid transparent;
   border-radius: 6px;
@@ -172,8 +172,9 @@ nav a {
 
 .color-popup-open {
     height: auto;
-    border: 1px solid #eeeeee;
     display: block;
+    margin-left: 7px;
+    border: 1px solid #eeeeee;
 }
 
 .btn-outline-dark {
